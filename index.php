@@ -43,19 +43,18 @@ if (isset($_SESSION["user"]) && $_SESSION["user"] == USER) {
     }
 } else {
     //Show the login form.
-    ?>
-    <form method="post">
-        user:<input type='text' name='user'><br/>
-        pass:<input type='password' name='pass'><br/>
-        <input type='submit' name='submit' value='Login'>
-    </form>
-    <?php
+    echo "<form method=\"post\">";
+    echo "user:<input type='text' name='user'><br/>";
+    echo "pass:<input type='password' name='pass'><br/>";
+    echo "<input type='submit' name='submit' value='Login'>";
+    echo "</form>";
+    
 }
-?>
-<hr>
-<div class='footer'>
-    <a href="?logout">logout</a><br>
-</div>
-</body>
-</html>
+
+echo "<hr>";
+echo "<div class='footer'>";
+echo "<a href=\"logout.php\">logout</a><br>";
+echo "</div>";
+echo "</body>";
+echo "</html>";
 
