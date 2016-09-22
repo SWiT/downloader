@@ -1,31 +1,16 @@
-<html>
-<header>
-<title>SWiT-FS</title>
-</header>
-<body>
-
-<style>
-div.filerow {
-    width: 400px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-div.filename {
-    display: inline;
-}
-div.filesize {
-    display: inline;
-    float: right;
-}
-div.odd {
-    background-color: #DDDDDD;
-}
-</style>
 
 <?php
 include("config.inc.php");
-
 session_start();
+
+echo "<html>";
+echo "<header>";
+echo "<title>".TITLE."</title>";
+echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">";
+echo "</header>";
+echo "<body>";
+echo "<h1>".TITLE."</h1>";
+echo "<hr>";
 
 if (isset($_POST["user"]) && isset($_POST["pass"]) ) {
     $user = $_POST["user"];

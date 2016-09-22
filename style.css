@@ -1,0 +1,15 @@
+div.filerow {
+    width: 400px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+div.filename {
+    display: inline;
+}
+div.filesize {
+    display: inline;
+    float: right;
+}
+div.odd {
+    background-color: #DDDDDD;
+}
