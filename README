@@ -1,1 +1,1 @@
-This is a super simple PHP application for sharing a single folder of files. It does not suppoer browsing subfolders yet. The downloads are secured using a single username and password combination. No database is required. Just edit config.inc.php.
+This is a super simple PHP application for sharing a single folder of files. It does not support browsing subfolders yet. The downloads are secured using a single username and password combination. No database is required. Just edit config.inc.php.
