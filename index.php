@@ -38,23 +38,36 @@ if (isset($_SESSION["user"])) {
     // Show the files.
 	foreach ($USER["files"] as $fileinfo) {
 		$path = $fileinfo["path"];
-		echo "<h2>$path</h2>";
-		$files = scandir($path);
-		$rowclass = "even";
-		foreach($files as $fn) {
-			$file = $path."/".$fn;
-			if (!is_dir($file)) {
-				$rowclass = ($rowclass == "odd")? "even" : "odd";
-				echo "<div class='filerow $rowclass'>";
-					echo "<div class='filename'>";
-					echo "<a href=\"download.php?p=".urlencode($path)."&f=".urlencode($fn)."\">";
-					echo $fn;
-					echo "</a>";
+		if (is_dir($path)) {
+			echo "<h3>$path</h3>";
+			$files = scandir($path);
+			$rowclass = "even";
+			foreach($files as $fn) {
+				$file = $path."/".$fn;
+				if (!is_dir($file)) {
+					$rowclass = ($rowclass == "odd")? "even" : "odd";
+					echo "<div class='filerow $rowclass'>";
+						echo "<div class='filename'>";
+						echo "<a href=\"download.php?p=".urlencode($path)."&f=".urlencode($fn)."\">";
+						echo $fn;
+						echo "</a>";
+						echo "</div>";
+						echo "<div class='filesize'>". round(filesize($file)/1000000) ." MB</div>";
 					echo "</div>";
-					echo "<div class='filesize'>". round(filesize($file)/1000000) ." MB</div>";
-				echo "</div>";
 
+				}
 			}
+		} else {
+			// Individual File
+			$rowclass = "odd";
+			echo "<div class='filerow $rowclass'>";
+				echo "<div class='filename'>";
+				echo "<a href=\"download.php?p=".urlencode($path)."\">";
+				echo basename($path);
+				echo "</a>";
+				echo "</div>";
+				echo "<div class='filesize'>". round(filesize($path)/1000000) ." MB</div>";
+			echo "</div>";
 		}
     }
 } else {
