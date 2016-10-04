@@ -1,15 +1,23 @@
 <?php
 session_start();
-include("config.inc.php");
-if (isset($_SESSION["user"]) && $_SESSION["user"] == USER) {
+include("config.php");
+if (isset($_SESSION["user"])) {
 	// Send the file.
-	$filename = $_GET["fn"];
-	$file = PATH."/".$filename;
+	$p = $_GET["p"];
+	$f = $_GET["f"];
+	
+	$file = "";
+	$USER = $_SESSION["user"];
+	foreach ($USER["files"] as $fileinfo) {
+		if ($p == $fileinfo["path"]) {
+			$file = $p . "/" . $f;
+		}
+	}
+	
 	$fp = fopen($file, 'rb');
-	$mimetype = mime_content_type($file);
-	header("Content-Type: $mimetype");
+	header("Content-Type: " . mime_content_type($file));
 	header("Content-Length: " . filesize($file));
-	header('Content-Disposition: attachment; filename="'.$filename.'"');
+	header('Content-Disposition: attachment; filename="'.basename($file).'"');
     header("Content-Transfer-Encoding: binary");
 	fpassthru($fp);
 	exit;

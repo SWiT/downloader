@@ -1,45 +1,60 @@
 
 <?php
-include("config.inc.php");
+include("config.php");
+
 session_start();
 
 echo "<html>";
 echo "<header>";
-echo "<title>".TITLE."</title>";
+echo "<title>".$CFG->TITLE."</title>";
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">";
 echo "</header>";
 echo "<body>";
-echo "<h1>".TITLE."</h1>";
+echo "<h1>".$CFG->TITLE."</h1>";
+//echo "<pre>";var_dump($CFG);echo "</pre>";
 echo "<hr>";
 
 if (isset($_POST["user"]) && isset($_POST["pass"]) ) {
-    $user = $_POST["user"];
-    $pass = $_POST["pass"];
-    if ($user == USER && $pass == PASS) {
-        $_SESSION["user"] = $user;
-    } else {
+    $username = $_POST["user"];
+    $password = $_POST["pass"];
+	
+	$userfound = False;
+	foreach ($CFG->USERS as $user) {
+		if ($user["username"] == $username && $user["password"] == $password) {
+			$userfound = True;
+			$_SESSION["user"] = $user;
+			break;
+		}
+	}
+    if (!$userfound) {
         $_SESSION["user"] = NULL;
     }
 }
 
-if (isset($_SESSION["user"]) && $_SESSION["user"] == USER) {
-    // Show the files.
-    $files = scandir(PATH);
-    $rowclass = "even";
-    foreach($files as $fn) {
-        $file = PATH."/".$fn;
-        if (!is_dir($file)) {
-            $rowclass = ($rowclass == "odd")? "even" : "odd";
-            echo "<div class='filerow $rowclass'>";
-                echo "<div class='filename'>";
-                echo "<a href=\"download.php?fn=$fn\">";
-                echo $fn;
-                echo "</a>";
-                echo "</div>";
-                echo "<div class='filesize'>". round(filesize($file)/1000000) ." MB</div>";
-            echo "</div>";
 
-        }
+
+if (isset($_SESSION["user"])) {
+	$USER = $_SESSION["user"];
+    // Show the files.
+	foreach ($USER["files"] as $fileinfo) {
+		$path = $fileinfo["path"];
+		$files = scandir($path);
+		$rowclass = "even";
+		foreach($files as $fn) {
+			$file = $path."/".$fn;
+			if (!is_dir($file)) {
+				$rowclass = ($rowclass == "odd")? "even" : "odd";
+				echo "<div class='filerow $rowclass'>";
+					echo "<div class='filename'>";
+					echo "<a href=\"download.php?p=".urlencode($path)."&f=".urlencode($fn)."\">";
+					echo $fn;
+					echo "</a>";
+					echo "</div>";
+					echo "<div class='filesize'>". round(filesize($file)/1000000) ." MB</div>";
+				echo "</div>";
+
+			}
+		}
     }
 } else {
     //Show the login form.
