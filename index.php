@@ -38,6 +38,7 @@ if (isset($_SESSION["user"])) {
     // Show the files.
 	foreach ($USER["files"] as $fileinfo) {
 		$path = $fileinfo["path"];
+		echo "<h2>$path</h2>";
 		$files = scandir($path);
 		$rowclass = "even";
 		foreach($files as $fn) {
