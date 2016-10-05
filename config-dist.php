@@ -1,6 +1,7 @@
 <?php
 $CFG = new \stdClass;
 $CFG->TITLE = "File Server";
+$CFG->EMAIL = "someone@somewhere.org";
 $CFG->USERS = [["username" => "user1",
 				"password" => "change me!",
 				"files" => [["path" => "/home/user/somefolder1"],

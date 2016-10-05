@@ -10,7 +10,11 @@ if (isset($_SESSION["user"])) {
 	$USER = $_SESSION["user"];
 	foreach ($USER["files"] as $fileinfo) {
 		if ($p == $fileinfo["path"]) {
-			$file = $p . "/" . $f;
+			if (empty($f)) {
+				$file = $p
+			} else {
+				$file = $p . "/" . $f;
+			}
 		}
 	}
 	
