@@ -10,8 +10,7 @@ echo "<title>".$CFG->TITLE."</title>";
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">";
 echo "</header>";
 echo "<body>";
-echo "<h1>".$CFG->TITLE."</h1>";
-//echo "<pre>";var_dump($CFG);echo "</pre>";
+echo "<h1>".$CFG->TITLE." (".$CFG->EMAIL.")</h1>";
 echo "<hr>";
 
 if (isset($_POST["user"]) && isset($_POST["pass"]) ) {
