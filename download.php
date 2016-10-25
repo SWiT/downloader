@@ -11,7 +11,7 @@ if (isset($_SESSION["user"])) {
 	foreach ($USER["files"] as $fileinfo) {
 		if ($p == $fileinfo["path"]) {
 			if (empty($f)) {
-				$file = $p
+				$file = $p;
 			} else {
 				$file = $p . "/" . $f;
 			}
